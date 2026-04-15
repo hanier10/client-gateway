@@ -1,4 +1,4 @@
-import { Body, Controller, Inject, Post } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { ESTUDIANTES_SERVICE } from 'src/config/service';
 import { CreateEstudianteDto } from './dto/create-estudiante.dto';
@@ -13,5 +13,10 @@ export class EstudiantesController {
   @Post()
   create(@Body() estudianteDto: CreateEstudianteDto) {
     return this.estudianteClient.send({ cmd: 'create_student' }, estudianteDto);
+  }
+
+  @Get()
+  getAll() {
+    return this.estudianteClient.send({ cmd: 'get_all_student' }, {});
   }
 }
