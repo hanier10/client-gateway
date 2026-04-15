@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Inject,
+  Param,
+  ParseIntPipe,
+  Post,
+} from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { ESTUDIANTES_SERVICE } from 'src/config/service';
 import { CreateEstudianteDto } from './dto/create-estudiante.dto';
@@ -18,5 +26,10 @@ export class EstudiantesController {
   @Get()
   getAll() {
     return this.estudianteClient.send({ cmd: 'get_all_student' }, {});
+  }
+
+  @Get(':id')
+  getOne(@Param('id', ParseIntPipe) id: number) {
+    return this.estudianteClient.send({ cmd: 'get_one_student' }, id);
   }
 }
