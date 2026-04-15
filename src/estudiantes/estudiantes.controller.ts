@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Inject,
   Param,
@@ -31,5 +32,10 @@ export class EstudiantesController {
   @Get(':id')
   getOne(@Param('id', ParseIntPipe) id: number) {
     return this.estudianteClient.send({ cmd: 'get_one_student' }, id);
+  }
+
+  @Delete(':id')
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.estudianteClient.send({ cmd: 'remove_student' }, id);
   }
 }
